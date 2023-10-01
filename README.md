@@ -8,7 +8,7 @@ cuda 10.2
 mmcv-full 1.4.3
 tensorflow-gpu 1.15.0
 
-1. git clone https://github.com/mzl163/AICITY23_Task4.git](https://github.com/trinhtn4322/AdaptCD-CheckSORT.git
+1. git clone https://github.com/trinhtn4322/AdaptCD-CheckSORT.git
 2. conda create -n checkout python=3.7
 3. conda activate checkout
 4. pip install torch==1.10.1+cu113 torchvision==0.11.2+cu113 torchaudio==0.10.1 -f https://download.pytorch.org/whl/cu113/torch_stable.html
