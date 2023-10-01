@@ -1,0 +1,1461 @@
+2023-04-17 17:05:13,719 - mmcls - INFO - Environment info:
+------------------------------------------------------------
+sys.platform: linux
+Python: 3.7.13 (default, Mar 29 2022, 02:18:16) [GCC 7.5.0]
+CUDA available: True
+GPU 0,1,2,3: NVIDIA RTX A6000
+CUDA_HOME: /usr/local/cuda-11.4
+NVCC: Build cuda_11.4.r11.4/compiler.30033411_0
+GCC: gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+PyTorch: 1.10.0
+PyTorch compiling details: PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) oneAPI Math Kernel Library Version 2021.4-Product Build 20210904 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.2.3 (Git Hash 7336ca9f055cf1bfa13efb658fe15dc9b41f0740)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX512
+  - CUDA Runtime 11.3
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.2
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.3, CUDNN_VERSION=8.2.0, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.10.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+TorchVision: 0.11.0
+OpenCV: 4.6.0
+MMCV: 1.4.3
+MMCV Compiler: GCC 9.4
+MMCV CUDA Compiler: 11.4
+MMClassification: 0.21.0+unknown
+------------------------------------------------------------
+
+2023-04-17 17:05:13,719 - mmcls - INFO - Distributed training: True
+2023-04-17 17:05:15,977 - mmcls - INFO - Config:
+model = dict(
+    type='ImageClassifier',
+    backbone=dict(type='EfficientNet', arch='b0'),
+    neck=dict(type='GlobalAveragePooling'),
+    head=dict(
+        type='LinearClsHead',
+        num_classes=117,
+        in_channels=1280,
+        loss=dict(type='CrossEntropyLoss', loss_weight=1.0),
+        topk=(1, 5)))
+policy_imagenet = [[{
+    'type': 'Posterize',
+    'bits': 4,
+    'prob': 0.4
+}, {
+    'type': 'Rotate',
+    'angle': 30.0,
+    'prob': 0.6
+}],
+                   [{
+                       'type': 'Solarize',
+                       'thr': 113.77777777777777,
+                       'prob': 0.6
+                   }, {
+                       'type': 'AutoContrast',
+                       'prob': 0.6
+                   }],
+                   [{
+                       'type': 'Equalize',
+                       'prob': 0.8
+                   }, {
+                       'type': 'Equalize',
+                       'prob': 0.6
+                   }],
+                   [{
+                       'type': 'Posterize',
+                       'bits': 5,
+                       'prob': 0.6
+                   }, {
+                       'type': 'Posterize',
+                       'bits': 5,
+                       'prob': 0.6
+                   }],
+                   [{
+                       'type': 'Equalize',
+                       'prob': 0.4
+                   }, {
+                       'type': 'Solarize',
+                       'thr': 142.22222222222223,
+                       'prob': 0.2
+                   }],
+                   [{
+                       'type': 'Equalize',
+                       'prob': 0.4
+                   }, {
+                       'type': 'Rotate',
+                       'angle': 26.666666666666668,
+                       'prob': 0.8
+                   }],
+                   [{
+                       'type': 'Solarize',
+                       'thr': 170.66666666666666,
+                       'prob': 0.6
+                   }, {
+                       'type': 'Equalize',
+                       'prob': 0.6
+                   }],
+                   [{
+                       'type': 'Posterize',
+                       'bits': 6,
+                       'prob': 0.8
+                   }, {
+                       'type': 'Equalize',
+                       'prob': 1.0
+                   }],
+                   [{
+                       'type': 'Rotate',
+                       'angle': 10.0,
+                       'prob': 0.2
+                   }, {
+                       'type': 'Solarize',
+                       'thr': 28.444444444444443,
+                       'prob': 0.6
+                   }],
+                   [{
+                       'type': 'Equalize',
+                       'prob': 0.6
+                   }, {
+                       'type': 'Posterize',
+                       'bits': 5,
+                       'prob': 0.4
+                   }],
+                   [{
+                       'type': 'Rotate',
+                       'angle': 26.666666666666668,
+                       'prob': 0.8
+                   }, {
+                       'type': 'ColorTransform',
+                       'magnitude': 0.0,
+                       'prob': 0.4
+                   }],
+                   [{
+                       'type': 'Rotate',
+                       'angle': 30.0,
+                       'prob': 0.4
+                   }, {
+                       'type': 'Equalize',
+                       'prob': 0.6
+                   }],
+                   [{
+                       'type': 'Equalize',
+                       'prob': 0.0
+                   }, {
+                       'type': 'Equalize',
+                       'prob': 0.8
+                   }],
+                   [{
+                       'type': 'Invert',
+                       'prob': 0.6
+                   }, {
+                       'type': 'Equalize',
+                       'prob': 1.0
+                   }],
+                   [{
+                       'type': 'ColorTransform',
+                       'magnitude': 0.4,
+                       'prob': 0.6
+                   }, {
+                       'type': 'Contrast',
+                       'magnitude': 0.8,
+                       'prob': 1.0
+                   }],
+                   [{
+                       'type': 'Rotate',
+                       'angle': 26.666666666666668,
+                       'prob': 0.8
+                   }, {
+                       'type': 'ColorTransform',
+                       'magnitude': 0.2,
+                       'prob': 1.0
+                   }],
+                   [{
+                       'type': 'ColorTransform',
+                       'magnitude': 0.8,
+                       'prob': 0.8
+                   }, {
+                       'type': 'Solarize',
+                       'thr': 56.888888888888886,
+                       'prob': 0.8
+                   }],
+                   [{
+                       'type': 'Sharpness',
+                       'magnitude': 0.7,
+                       'prob': 0.4
+                   }, {
+                       'type': 'Invert',
+                       'prob': 0.6
+                   }],
+                   [{
+                       'type': 'Shear',
+                       'magnitude': 0.16666666666666666,
+                       'prob': 0.6,
+                       'direction': 'horizontal'
+                   }, {
+                       'type': 'Equalize',
+                       'prob': 1.0
+                   }],
+                   [{
+                       'type': 'ColorTransform',
+                       'magnitude': 0.0,
+                       'prob': 0.4
+                   }, {
+                       'type': 'Equalize',
+                       'prob': 0.6
+                   }],
+                   [{
+                       'type': 'Equalize',
+                       'prob': 0.4
+                   }, {
+                       'type': 'Solarize',
+                       'thr': 142.22222222222223,
+                       'prob': 0.2
+                   }],
+                   [{
+                       'type': 'Solarize',
+                       'thr': 113.77777777777777,
+                       'prob': 0.6
+                   }, {
+                       'type': 'AutoContrast',
+                       'prob': 0.6
+                   }],
+                   [{
+                       'type': 'Invert',
+                       'prob': 0.6
+                   }, {
+                       'type': 'Equalize',
+                       'prob': 1.0
+                   }],
+                   [{
+                       'type': 'ColorTransform',
+                       'magnitude': 0.4,
+                       'prob': 0.6
+                   }, {
+                       'type': 'Contrast',
+                       'magnitude': 0.8,
+                       'prob': 1.0
+                   }],
+                   [{
+                       'type': 'Equalize',
+                       'prob': 0.8
+                   }, {
+                       'type': 'Equalize',
+                       'prob': 0.6
+                   }]]
+dataset_type = 'MyDataset'
+img_norm_cfg = dict(
+    mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
+train_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(type='RandomResizedCrop', size=224),
+    dict(type='RandomFlip', flip_prob=0.5, direction='horizontal'),
+    dict(
+        type='AutoAugment',
+        policies=[[{
+            'type': 'Posterize',
+            'bits': 4,
+            'prob': 0.4
+        }, {
+            'type': 'Rotate',
+            'angle': 30.0,
+            'prob': 0.6
+        }],
+                  [{
+                      'type': 'Solarize',
+                      'thr': 113.77777777777777,
+                      'prob': 0.6
+                  }, {
+                      'type': 'AutoContrast',
+                      'prob': 0.6
+                  }],
+                  [{
+                      'type': 'Equalize',
+                      'prob': 0.8
+                  }, {
+                      'type': 'Equalize',
+                      'prob': 0.6
+                  }],
+                  [{
+                      'type': 'Posterize',
+                      'bits': 5,
+                      'prob': 0.6
+                  }, {
+                      'type': 'Posterize',
+                      'bits': 5,
+                      'prob': 0.6
+                  }],
+                  [{
+                      'type': 'Equalize',
+                      'prob': 0.4
+                  }, {
+                      'type': 'Solarize',
+                      'thr': 142.22222222222223,
+                      'prob': 0.2
+                  }],
+                  [{
+                      'type': 'Equalize',
+                      'prob': 0.4
+                  }, {
+                      'type': 'Rotate',
+                      'angle': 26.666666666666668,
+                      'prob': 0.8
+                  }],
+                  [{
+                      'type': 'Solarize',
+                      'thr': 170.66666666666666,
+                      'prob': 0.6
+                  }, {
+                      'type': 'Equalize',
+                      'prob': 0.6
+                  }],
+                  [{
+                      'type': 'Posterize',
+                      'bits': 6,
+                      'prob': 0.8
+                  }, {
+                      'type': 'Equalize',
+                      'prob': 1.0
+                  }],
+                  [{
+                      'type': 'Rotate',
+                      'angle': 10.0,
+                      'prob': 0.2
+                  }, {
+                      'type': 'Solarize',
+                      'thr': 28.444444444444443,
+                      'prob': 0.6
+                  }],
+                  [{
+                      'type': 'Equalize',
+                      'prob': 0.6
+                  }, {
+                      'type': 'Posterize',
+                      'bits': 5,
+                      'prob': 0.4
+                  }],
+                  [{
+                      'type': 'Rotate',
+                      'angle': 26.666666666666668,
+                      'prob': 0.8
+                  }, {
+                      'type': 'ColorTransform',
+                      'magnitude': 0.0,
+                      'prob': 0.4
+                  }],
+                  [{
+                      'type': 'Rotate',
+                      'angle': 30.0,
+                      'prob': 0.4
+                  }, {
+                      'type': 'Equalize',
+                      'prob': 0.6
+                  }],
+                  [{
+                      'type': 'Equalize',
+                      'prob': 0.0
+                  }, {
+                      'type': 'Equalize',
+                      'prob': 0.8
+                  }],
+                  [{
+                      'type': 'Invert',
+                      'prob': 0.6
+                  }, {
+                      'type': 'Equalize',
+                      'prob': 1.0
+                  }],
+                  [{
+                      'type': 'ColorTransform',
+                      'magnitude': 0.4,
+                      'prob': 0.6
+                  }, {
+                      'type': 'Contrast',
+                      'magnitude': 0.8,
+                      'prob': 1.0
+                  }],
+                  [{
+                      'type': 'Rotate',
+                      'angle': 26.666666666666668,
+                      'prob': 0.8
+                  }, {
+                      'type': 'ColorTransform',
+                      'magnitude': 0.2,
+                      'prob': 1.0
+                  }],
+                  [{
+                      'type': 'ColorTransform',
+                      'magnitude': 0.8,
+                      'prob': 0.8
+                  }, {
+                      'type': 'Solarize',
+                      'thr': 56.888888888888886,
+                      'prob': 0.8
+                  }],
+                  [{
+                      'type': 'Sharpness',
+                      'magnitude': 0.7,
+                      'prob': 0.4
+                  }, {
+                      'type': 'Invert',
+                      'prob': 0.6
+                  }],
+                  [{
+                      'type': 'Shear',
+                      'magnitude': 0.16666666666666666,
+                      'prob': 0.6,
+                      'direction': 'horizontal'
+                  }, {
+                      'type': 'Equalize',
+                      'prob': 1.0
+                  }],
+                  [{
+                      'type': 'ColorTransform',
+                      'magnitude': 0.0,
+                      'prob': 0.4
+                  }, {
+                      'type': 'Equalize',
+                      'prob': 0.6
+                  }],
+                  [{
+                      'type': 'Equalize',
+                      'prob': 0.4
+                  }, {
+                      'type': 'Solarize',
+                      'thr': 142.22222222222223,
+                      'prob': 0.2
+                  }],
+                  [{
+                      'type': 'Solarize',
+                      'thr': 113.77777777777777,
+                      'prob': 0.6
+                  }, {
+                      'type': 'AutoContrast',
+                      'prob': 0.6
+                  }],
+                  [{
+                      'type': 'Invert',
+                      'prob': 0.6
+                  }, {
+                      'type': 'Equalize',
+                      'prob': 1.0
+                  }],
+                  [{
+                      'type': 'ColorTransform',
+                      'magnitude': 0.4,
+                      'prob': 0.6
+                  }, {
+                      'type': 'Contrast',
+                      'magnitude': 0.8,
+                      'prob': 1.0
+                  }],
+                  [{
+                      'type': 'Equalize',
+                      'prob': 0.8
+                  }, {
+                      'type': 'Equalize',
+                      'prob': 0.6
+                  }]]),
+    dict(
+        type='Normalize',
+        mean=[123.675, 116.28, 103.53],
+        std=[58.395, 57.12, 57.375],
+        to_rgb=True),
+    dict(type='ImageToTensor', keys=['img']),
+    dict(type='ToTensor', keys=['gt_label']),
+    dict(type='Collect', keys=['img', 'gt_label'])
+]
+test_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(type='Resize', size=(256, -1)),
+    dict(type='CenterCrop', crop_size=224),
+    dict(
+        type='Normalize',
+        mean=[123.675, 116.28, 103.53],
+        std=[58.395, 57.12, 57.375],
+        to_rgb=True),
+    dict(type='ImageToTensor', keys=['img']),
+    dict(type='Collect', keys=['img'])
+]
+data = dict(
+    samples_per_gpu=64,
+    workers_per_gpu=8,
+    train=dict(
+        type='MyDataset',
+        data_prefix='./data/alladd2/train',
+        ann_file='./data/alladd2/meta/train.txt',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(type='RandomResizedCrop', size=224),
+            dict(type='RandomFlip', flip_prob=0.5, direction='horizontal'),
+            dict(
+                type='AutoAugment',
+                policies=[[{
+                    'type': 'Posterize',
+                    'bits': 4,
+                    'prob': 0.4
+                }, {
+                    'type': 'Rotate',
+                    'angle': 30.0,
+                    'prob': 0.6
+                }],
+                          [{
+                              'type': 'Solarize',
+                              'thr': 113.77777777777777,
+                              'prob': 0.6
+                          }, {
+                              'type': 'AutoContrast',
+                              'prob': 0.6
+                          }],
+                          [{
+                              'type': 'Equalize',
+                              'prob': 0.8
+                          }, {
+                              'type': 'Equalize',
+                              'prob': 0.6
+                          }],
+                          [{
+                              'type': 'Posterize',
+                              'bits': 5,
+                              'prob': 0.6
+                          }, {
+                              'type': 'Posterize',
+                              'bits': 5,
+                              'prob': 0.6
+                          }],
+                          [{
+                              'type': 'Equalize',
+                              'prob': 0.4
+                          }, {
+                              'type': 'Solarize',
+                              'thr': 142.22222222222223,
+                              'prob': 0.2
+                          }],
+                          [{
+                              'type': 'Equalize',
+                              'prob': 0.4
+                          }, {
+                              'type': 'Rotate',
+                              'angle': 26.666666666666668,
+                              'prob': 0.8
+                          }],
+                          [{
+                              'type': 'Solarize',
+                              'thr': 170.66666666666666,
+                              'prob': 0.6
+                          }, {
+                              'type': 'Equalize',
+                              'prob': 0.6
+                          }],
+                          [{
+                              'type': 'Posterize',
+                              'bits': 6,
+                              'prob': 0.8
+                          }, {
+                              'type': 'Equalize',
+                              'prob': 1.0
+                          }],
+                          [{
+                              'type': 'Rotate',
+                              'angle': 10.0,
+                              'prob': 0.2
+                          }, {
+                              'type': 'Solarize',
+                              'thr': 28.444444444444443,
+                              'prob': 0.6
+                          }],
+                          [{
+                              'type': 'Equalize',
+                              'prob': 0.6
+                          }, {
+                              'type': 'Posterize',
+                              'bits': 5,
+                              'prob': 0.4
+                          }],
+                          [{
+                              'type': 'Rotate',
+                              'angle': 26.666666666666668,
+                              'prob': 0.8
+                          }, {
+                              'type': 'ColorTransform',
+                              'magnitude': 0.0,
+                              'prob': 0.4
+                          }],
+                          [{
+                              'type': 'Rotate',
+                              'angle': 30.0,
+                              'prob': 0.4
+                          }, {
+                              'type': 'Equalize',
+                              'prob': 0.6
+                          }],
+                          [{
+                              'type': 'Equalize',
+                              'prob': 0.0
+                          }, {
+                              'type': 'Equalize',
+                              'prob': 0.8
+                          }],
+                          [{
+                              'type': 'Invert',
+                              'prob': 0.6
+                          }, {
+                              'type': 'Equalize',
+                              'prob': 1.0
+                          }],
+                          [{
+                              'type': 'ColorTransform',
+                              'magnitude': 0.4,
+                              'prob': 0.6
+                          }, {
+                              'type': 'Contrast',
+                              'magnitude': 0.8,
+                              'prob': 1.0
+                          }],
+                          [{
+                              'type': 'Rotate',
+                              'angle': 26.666666666666668,
+                              'prob': 0.8
+                          }, {
+                              'type': 'ColorTransform',
+                              'magnitude': 0.2,
+                              'prob': 1.0
+                          }],
+                          [{
+                              'type': 'ColorTransform',
+                              'magnitude': 0.8,
+                              'prob': 0.8
+                          }, {
+                              'type': 'Solarize',
+                              'thr': 56.888888888888886,
+                              'prob': 0.8
+                          }],
+                          [{
+                              'type': 'Sharpness',
+                              'magnitude': 0.7,
+                              'prob': 0.4
+                          }, {
+                              'type': 'Invert',
+                              'prob': 0.6
+                          }],
+                          [{
+                              'type': 'Shear',
+                              'magnitude': 0.16666666666666666,
+                              'prob': 0.6,
+                              'direction': 'horizontal'
+                          }, {
+                              'type': 'Equalize',
+                              'prob': 1.0
+                          }],
+                          [{
+                              'type': 'ColorTransform',
+                              'magnitude': 0.0,
+                              'prob': 0.4
+                          }, {
+                              'type': 'Equalize',
+                              'prob': 0.6
+                          }],
+                          [{
+                              'type': 'Equalize',
+                              'prob': 0.4
+                          }, {
+                              'type': 'Solarize',
+                              'thr': 142.22222222222223,
+                              'prob': 0.2
+                          }],
+                          [{
+                              'type': 'Solarize',
+                              'thr': 113.77777777777777,
+                              'prob': 0.6
+                          }, {
+                              'type': 'AutoContrast',
+                              'prob': 0.6
+                          }],
+                          [{
+                              'type': 'Invert',
+                              'prob': 0.6
+                          }, {
+                              'type': 'Equalize',
+                              'prob': 1.0
+                          }],
+                          [{
+                              'type': 'ColorTransform',
+                              'magnitude': 0.4,
+                              'prob': 0.6
+                          }, {
+                              'type': 'Contrast',
+                              'magnitude': 0.8,
+                              'prob': 1.0
+                          }],
+                          [{
+                              'type': 'Equalize',
+                              'prob': 0.8
+                          }, {
+                              'type': 'Equalize',
+                              'prob': 0.6
+                          }]]),
+            dict(
+                type='Normalize',
+                mean=[123.675, 116.28, 103.53],
+                std=[58.395, 57.12, 57.375],
+                to_rgb=True),
+            dict(type='ImageToTensor', keys=['img']),
+            dict(type='ToTensor', keys=['gt_label']),
+            dict(type='Collect', keys=['img', 'gt_label'])
+        ]),
+    val=dict(
+        type='MyDataset',
+        data_prefix='./data/alladd2/val',
+        ann_file='./data/alladd2/meta/val.txt',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(type='Resize', size=(256, -1)),
+            dict(type='CenterCrop', crop_size=224),
+            dict(
+                type='Normalize',
+                mean=[123.675, 116.28, 103.53],
+                std=[58.395, 57.12, 57.375],
+                to_rgb=True),
+            dict(type='ImageToTensor', keys=['img']),
+            dict(type='Collect', keys=['img'])
+        ]),
+    test=dict(
+        type='MyDataset',
+        data_prefix='./data/alladd2/val',
+        ann_file='./data/alladd2/meta/val.txt',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(type='Resize', size=(256, -1)),
+            dict(type='CenterCrop', crop_size=224),
+            dict(
+                type='Normalize',
+                mean=[123.675, 116.28, 103.53],
+                std=[58.395, 57.12, 57.375],
+                to_rgb=True),
+            dict(type='ImageToTensor', keys=['img']),
+            dict(type='Collect', keys=['img'])
+        ]))
+evaluation = dict(interval=1, metric='accuracy')
+optimizer = dict(type='SGD', lr=0.05, momentum=0.9, weight_decay=0.0001)
+optimizer_config = dict(grad_clip=None)
+lr_config = dict(policy='step', step=[5, 10, 15])
+runner = dict(type='EpochBasedRunner', max_epochs=20)
+checkpoint_config = dict(interval=1)
+log_config = dict(
+    interval=100,
+    hooks=[dict(type='TextLoggerHook'),
+           dict(type='TensorboardLoggerHook')])
+dist_params = dict(backend='nccl')
+log_level = 'INFO'
+load_from = './models/efficientnet-b0_3rdparty_8xb32-aa-advprop_in1k_20220119-26434485.pth'
+resume_from = None
+workflow = [('train', 1)]
+work_dir = './mmclassification/work_dirs/b0'
+gpu_ids = range(0, 2)
+
+2023-04-17 17:05:20,337 - mmcls - INFO - Set random seed to 12061128, deterministic: False
+2023-04-17 17:05:20,432 - mmcls - INFO - initialize EfficientNet with init_cfg [{'type': 'Kaiming', 'layer': 'Conv2d'}, {'type': 'Constant', 'layer': ['_BatchNorm', 'GroupNorm'], 'val': 1}]
+2023-04-17 17:05:20,479 - mmcls - INFO - initialize LinearClsHead with init_cfg {'type': 'Normal', 'layer': 'Linear', 'std': 0.01}
+Name of parameter - Initialization information
+
+backbone.layers.0.conv.weight - torch.Size([32, 3, 3, 3]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.0.bn.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.0.bn.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.1.0.depthwise_conv.conv.weight - torch.Size([32, 1, 3, 3]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.1.0.depthwise_conv.bn.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.1.0.depthwise_conv.bn.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.1.0.se.conv1.conv.weight - torch.Size([8, 32, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.1.0.se.conv1.conv.bias - torch.Size([8]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.1.0.se.conv2.conv.weight - torch.Size([32, 8, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.1.0.se.conv2.conv.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.1.0.linear_conv.conv.weight - torch.Size([16, 32, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.1.0.linear_conv.bn.weight - torch.Size([16]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.1.0.linear_conv.bn.bias - torch.Size([16]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.2.0.expand_conv.conv.weight - torch.Size([96, 16, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.2.0.expand_conv.bn.weight - torch.Size([96]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.2.0.expand_conv.bn.bias - torch.Size([96]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.2.0.depthwise_conv.conv.weight - torch.Size([96, 1, 3, 3]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.2.0.depthwise_conv.bn.weight - torch.Size([96]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.2.0.depthwise_conv.bn.bias - torch.Size([96]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.2.0.se.conv1.conv.weight - torch.Size([4, 96, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.2.0.se.conv1.conv.bias - torch.Size([4]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.2.0.se.conv2.conv.weight - torch.Size([96, 4, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.2.0.se.conv2.conv.bias - torch.Size([96]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.2.0.linear_conv.conv.weight - torch.Size([24, 96, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.2.0.linear_conv.bn.weight - torch.Size([24]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.2.0.linear_conv.bn.bias - torch.Size([24]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.2.1.expand_conv.conv.weight - torch.Size([144, 24, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.2.1.expand_conv.bn.weight - torch.Size([144]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.2.1.expand_conv.bn.bias - torch.Size([144]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.2.1.depthwise_conv.conv.weight - torch.Size([144, 1, 3, 3]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.2.1.depthwise_conv.bn.weight - torch.Size([144]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.2.1.depthwise_conv.bn.bias - torch.Size([144]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.2.1.se.conv1.conv.weight - torch.Size([6, 144, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.2.1.se.conv1.conv.bias - torch.Size([6]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.2.1.se.conv2.conv.weight - torch.Size([144, 6, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.2.1.se.conv2.conv.bias - torch.Size([144]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.2.1.linear_conv.conv.weight - torch.Size([24, 144, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.2.1.linear_conv.bn.weight - torch.Size([24]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.2.1.linear_conv.bn.bias - torch.Size([24]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.3.0.expand_conv.conv.weight - torch.Size([144, 24, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.3.0.expand_conv.bn.weight - torch.Size([144]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.3.0.expand_conv.bn.bias - torch.Size([144]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.3.0.depthwise_conv.conv.weight - torch.Size([144, 1, 5, 5]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.3.0.depthwise_conv.bn.weight - torch.Size([144]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.3.0.depthwise_conv.bn.bias - torch.Size([144]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.3.0.se.conv1.conv.weight - torch.Size([6, 144, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.3.0.se.conv1.conv.bias - torch.Size([6]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.3.0.se.conv2.conv.weight - torch.Size([144, 6, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.3.0.se.conv2.conv.bias - torch.Size([144]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.3.0.linear_conv.conv.weight - torch.Size([40, 144, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.3.0.linear_conv.bn.weight - torch.Size([40]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.3.0.linear_conv.bn.bias - torch.Size([40]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.3.1.expand_conv.conv.weight - torch.Size([240, 40, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.3.1.expand_conv.bn.weight - torch.Size([240]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.3.1.expand_conv.bn.bias - torch.Size([240]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.3.1.depthwise_conv.conv.weight - torch.Size([240, 1, 5, 5]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.3.1.depthwise_conv.bn.weight - torch.Size([240]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.3.1.depthwise_conv.bn.bias - torch.Size([240]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.3.1.se.conv1.conv.weight - torch.Size([10, 240, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.3.1.se.conv1.conv.bias - torch.Size([10]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.3.1.se.conv2.conv.weight - torch.Size([240, 10, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.3.1.se.conv2.conv.bias - torch.Size([240]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.3.1.linear_conv.conv.weight - torch.Size([40, 240, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.3.1.linear_conv.bn.weight - torch.Size([40]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.3.1.linear_conv.bn.bias - torch.Size([40]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.0.expand_conv.conv.weight - torch.Size([240, 40, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.0.expand_conv.bn.weight - torch.Size([240]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.0.expand_conv.bn.bias - torch.Size([240]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.0.depthwise_conv.conv.weight - torch.Size([240, 1, 3, 3]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.0.depthwise_conv.bn.weight - torch.Size([240]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.0.depthwise_conv.bn.bias - torch.Size([240]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.0.se.conv1.conv.weight - torch.Size([10, 240, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.0.se.conv1.conv.bias - torch.Size([10]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.0.se.conv2.conv.weight - torch.Size([240, 10, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.0.se.conv2.conv.bias - torch.Size([240]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.0.linear_conv.conv.weight - torch.Size([80, 240, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.0.linear_conv.bn.weight - torch.Size([80]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.0.linear_conv.bn.bias - torch.Size([80]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.1.expand_conv.conv.weight - torch.Size([480, 80, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.1.expand_conv.bn.weight - torch.Size([480]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.1.expand_conv.bn.bias - torch.Size([480]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.1.depthwise_conv.conv.weight - torch.Size([480, 1, 3, 3]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.1.depthwise_conv.bn.weight - torch.Size([480]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.1.depthwise_conv.bn.bias - torch.Size([480]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.1.se.conv1.conv.weight - torch.Size([20, 480, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.1.se.conv1.conv.bias - torch.Size([20]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.1.se.conv2.conv.weight - torch.Size([480, 20, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.1.se.conv2.conv.bias - torch.Size([480]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.1.linear_conv.conv.weight - torch.Size([80, 480, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.1.linear_conv.bn.weight - torch.Size([80]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.1.linear_conv.bn.bias - torch.Size([80]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.2.expand_conv.conv.weight - torch.Size([480, 80, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.2.expand_conv.bn.weight - torch.Size([480]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.2.expand_conv.bn.bias - torch.Size([480]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.2.depthwise_conv.conv.weight - torch.Size([480, 1, 3, 3]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.2.depthwise_conv.bn.weight - torch.Size([480]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.2.depthwise_conv.bn.bias - torch.Size([480]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.2.se.conv1.conv.weight - torch.Size([20, 480, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.2.se.conv1.conv.bias - torch.Size([20]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.2.se.conv2.conv.weight - torch.Size([480, 20, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.2.se.conv2.conv.bias - torch.Size([480]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.2.linear_conv.conv.weight - torch.Size([80, 480, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.2.linear_conv.bn.weight - torch.Size([80]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.2.linear_conv.bn.bias - torch.Size([80]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.3.expand_conv.conv.weight - torch.Size([480, 80, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.3.expand_conv.bn.weight - torch.Size([480]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.3.expand_conv.bn.bias - torch.Size([480]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.3.depthwise_conv.conv.weight - torch.Size([480, 1, 5, 5]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.3.depthwise_conv.bn.weight - torch.Size([480]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.3.depthwise_conv.bn.bias - torch.Size([480]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.3.se.conv1.conv.weight - torch.Size([20, 480, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.3.se.conv1.conv.bias - torch.Size([20]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.3.se.conv2.conv.weight - torch.Size([480, 20, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.3.se.conv2.conv.bias - torch.Size([480]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.3.linear_conv.conv.weight - torch.Size([112, 480, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.3.linear_conv.bn.weight - torch.Size([112]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.3.linear_conv.bn.bias - torch.Size([112]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.4.expand_conv.conv.weight - torch.Size([672, 112, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.4.expand_conv.bn.weight - torch.Size([672]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.4.expand_conv.bn.bias - torch.Size([672]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.4.depthwise_conv.conv.weight - torch.Size([672, 1, 5, 5]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.4.depthwise_conv.bn.weight - torch.Size([672]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.4.depthwise_conv.bn.bias - torch.Size([672]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.4.se.conv1.conv.weight - torch.Size([28, 672, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.4.se.conv1.conv.bias - torch.Size([28]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.4.se.conv2.conv.weight - torch.Size([672, 28, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.4.se.conv2.conv.bias - torch.Size([672]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.4.linear_conv.conv.weight - torch.Size([112, 672, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.4.linear_conv.bn.weight - torch.Size([112]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.4.linear_conv.bn.bias - torch.Size([112]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.5.expand_conv.conv.weight - torch.Size([672, 112, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.5.expand_conv.bn.weight - torch.Size([672]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.5.expand_conv.bn.bias - torch.Size([672]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.5.depthwise_conv.conv.weight - torch.Size([672, 1, 5, 5]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.5.depthwise_conv.bn.weight - torch.Size([672]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.5.depthwise_conv.bn.bias - torch.Size([672]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.5.se.conv1.conv.weight - torch.Size([28, 672, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.5.se.conv1.conv.bias - torch.Size([28]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.5.se.conv2.conv.weight - torch.Size([672, 28, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.5.se.conv2.conv.bias - torch.Size([672]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.5.linear_conv.conv.weight - torch.Size([112, 672, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.4.5.linear_conv.bn.weight - torch.Size([112]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.4.5.linear_conv.bn.bias - torch.Size([112]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.0.expand_conv.conv.weight - torch.Size([672, 112, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.0.expand_conv.bn.weight - torch.Size([672]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.0.expand_conv.bn.bias - torch.Size([672]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.0.depthwise_conv.conv.weight - torch.Size([672, 1, 5, 5]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.0.depthwise_conv.bn.weight - torch.Size([672]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.0.depthwise_conv.bn.bias - torch.Size([672]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.0.se.conv1.conv.weight - torch.Size([28, 672, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.0.se.conv1.conv.bias - torch.Size([28]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.0.se.conv2.conv.weight - torch.Size([672, 28, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.0.se.conv2.conv.bias - torch.Size([672]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.0.linear_conv.conv.weight - torch.Size([192, 672, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.0.linear_conv.bn.weight - torch.Size([192]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.0.linear_conv.bn.bias - torch.Size([192]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.1.expand_conv.conv.weight - torch.Size([1152, 192, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.1.expand_conv.bn.weight - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.1.expand_conv.bn.bias - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.1.depthwise_conv.conv.weight - torch.Size([1152, 1, 5, 5]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.1.depthwise_conv.bn.weight - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.1.depthwise_conv.bn.bias - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.1.se.conv1.conv.weight - torch.Size([48, 1152, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.1.se.conv1.conv.bias - torch.Size([48]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.1.se.conv2.conv.weight - torch.Size([1152, 48, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.1.se.conv2.conv.bias - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.1.linear_conv.conv.weight - torch.Size([192, 1152, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.1.linear_conv.bn.weight - torch.Size([192]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.1.linear_conv.bn.bias - torch.Size([192]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.2.expand_conv.conv.weight - torch.Size([1152, 192, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.2.expand_conv.bn.weight - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.2.expand_conv.bn.bias - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.2.depthwise_conv.conv.weight - torch.Size([1152, 1, 5, 5]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.2.depthwise_conv.bn.weight - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.2.depthwise_conv.bn.bias - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.2.se.conv1.conv.weight - torch.Size([48, 1152, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.2.se.conv1.conv.bias - torch.Size([48]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.2.se.conv2.conv.weight - torch.Size([1152, 48, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.2.se.conv2.conv.bias - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.2.linear_conv.conv.weight - torch.Size([192, 1152, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.2.linear_conv.bn.weight - torch.Size([192]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.2.linear_conv.bn.bias - torch.Size([192]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.3.expand_conv.conv.weight - torch.Size([1152, 192, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.3.expand_conv.bn.weight - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.3.expand_conv.bn.bias - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.3.depthwise_conv.conv.weight - torch.Size([1152, 1, 5, 5]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.3.depthwise_conv.bn.weight - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.3.depthwise_conv.bn.bias - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.3.se.conv1.conv.weight - torch.Size([48, 1152, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.3.se.conv1.conv.bias - torch.Size([48]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.3.se.conv2.conv.weight - torch.Size([1152, 48, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.3.se.conv2.conv.bias - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.3.linear_conv.conv.weight - torch.Size([192, 1152, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.3.linear_conv.bn.weight - torch.Size([192]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.3.linear_conv.bn.bias - torch.Size([192]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.4.expand_conv.conv.weight - torch.Size([1152, 192, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.4.expand_conv.bn.weight - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.4.expand_conv.bn.bias - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.4.depthwise_conv.conv.weight - torch.Size([1152, 1, 3, 3]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.4.depthwise_conv.bn.weight - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.4.depthwise_conv.bn.bias - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.4.se.conv1.conv.weight - torch.Size([48, 1152, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.4.se.conv1.conv.bias - torch.Size([48]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.4.se.conv2.conv.weight - torch.Size([1152, 48, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.4.se.conv2.conv.bias - torch.Size([1152]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.4.linear_conv.conv.weight - torch.Size([320, 1152, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.5.4.linear_conv.bn.weight - torch.Size([320]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.5.4.linear_conv.bn.bias - torch.Size([320]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.6.conv.weight - torch.Size([1280, 320, 1, 1]): 
+KaimingInit: a=0, mode=fan_out, nonlinearity=relu, distribution =normal, bias=0 
+
+backbone.layers.6.bn.weight - torch.Size([1280]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layers.6.bn.bias - torch.Size([1280]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+head.fc.weight - torch.Size([117, 1280]): 
+NormalInit: mean=0, std=0.01, bias=0 
+
+head.fc.bias - torch.Size([117]): 
+NormalInit: mean=0, std=0.01, bias=0 
+2023-04-17 17:05:24,038 - mmcls - INFO - load checkpoint from local path: ./models/efficientnet-b0_3rdparty_8xb32-aa-advprop_in1k_20220119-26434485.pth
+2023-04-17 17:05:24,255 - mmcls - WARNING - The model and loaded state dict do not match exactly
+
+size mismatch for head.fc.weight: copying a param with shape torch.Size([1000, 1280]) from checkpoint, the shape in current model is torch.Size([117, 1280]).
+size mismatch for head.fc.bias: copying a param with shape torch.Size([1000]) from checkpoint, the shape in current model is torch.Size([117]).
+2023-04-17 17:05:24,255 - mmcls - INFO - Start running, host: ll@zkti, work_dir: /home/ll/aicity/fujitsu_repos/main/submit/mmclassification/work_dirs/b0
+2023-04-17 17:05:24,255 - mmcls - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) StepLrUpdaterHook                  
+(NORMAL      ) CheckpointHook                     
+(VERY_LOW    ) TextLoggerHook                     
+(VERY_LOW    ) TensorboardLoggerHook              
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) StepLrUpdaterHook                  
+(NORMAL      ) DistSamplerSeedHook                
+(LOW         ) IterTimerHook                      
+(VERY_LOW    ) TextLoggerHook                     
+(VERY_LOW    ) TensorboardLoggerHook              
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) StepLrUpdaterHook                  
+(LOW         ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(ABOVE_NORMAL) DistOptimizerHook                  
+(NORMAL      ) CheckpointHook                     
+(LOW         ) IterTimerHook                      
+(VERY_LOW    ) TextLoggerHook                     
+(VERY_LOW    ) TensorboardLoggerHook              
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) CheckpointHook                     
+(VERY_LOW    ) TextLoggerHook                     
+(VERY_LOW    ) TensorboardLoggerHook              
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) DistSamplerSeedHook                
+(LOW         ) IterTimerHook                      
+(VERY_LOW    ) TextLoggerHook                     
+(VERY_LOW    ) TensorboardLoggerHook              
+ -------------------- 
+before_val_iter:
+(LOW         ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(LOW         ) IterTimerHook                      
+ -------------------- 
+after_val_epoch:
+(VERY_LOW    ) TextLoggerHook                     
+(VERY_LOW    ) TensorboardLoggerHook              
+ -------------------- 
+after_run:
+(VERY_LOW    ) TextLoggerHook                     
+(VERY_LOW    ) TensorboardLoggerHook              
+ -------------------- 
+2023-04-17 17:05:24,256 - mmcls - INFO - workflow: [('train', 1)], max: 20 epochs
+2023-04-17 17:05:24,256 - mmcls - INFO - Checkpoints will be saved to /home/ll/aicity/fujitsu_repos/main/submit/mmclassification/work_dirs/b0 by HardDiskBackend.
+2023-04-17 17:05:48,279 - mmcls - INFO - Epoch [1][100/2485]	lr: 5.000e-02, eta: 3:18:09, time: 0.240, data_time: 0.037, memory: 7223, loss: 3.5839
