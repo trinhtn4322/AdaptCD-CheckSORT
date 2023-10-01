@@ -18,3 +18,14 @@ tensorflow-gpu 1.15.0
 8. sh ./tools1/setup.sh 
 
 # 2. Download requir file
+https://drive.google.com/drive/folders/104_y8Z-1Ha78Fj1G0s3KgUuTs6t1Ta_L?usp=drive_link\
+
+# Run model
+## 1. Use the FFmpeg library to extract/count frames.
+python tools1/extract_frames.py --out_folder ./frames
+## AdaptCD
+python tools1/test_network.py --input_folder ./frames --out_file ./results.txt
+
+## CheckSORT
+
+python tools/test_net_23_inframe.py --input_folder ./frames --out_file ./results.txt --detector ./checkpoints/detectors_cascade_rcnn_r50_1x_coco/epoch_5.pth --feature ./checkpoints/b0/epoch_20.pth --b2 ./checkpoints/b2/epoch_20.pth --resnest50 ./checkpoints/resnest50/epoch_20.pth --resnest101 ./checkpoints/resnest101/epoch_20.pth
