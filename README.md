@@ -17,7 +17,9 @@ tensorflow-gpu 1.15.0
 7. pip install -r requirements.txt
 8. sh ./tools1/setup.sh 
 
-# 2. Download requir file
+Download ffmp.exe và thay ffmpeg_path trong tools1/extrasct_frames.py
+
+# 2. Download require file
 https://drive.google.com/drive/folders/104_y8Z-1Ha78Fj1G0s3KgUuTs6t1Ta_L?usp=drive_link\
 
 # Run model
