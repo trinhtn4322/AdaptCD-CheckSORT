@@ -16,3 +16,5 @@ tensorflow-gpu 1.15.0
 6. cd ./AdaptCD-CheckSORT
 7. pip install -r requirements.txt
 8. sh ./tools1/setup.sh 
+
+# 2. Download requir file
